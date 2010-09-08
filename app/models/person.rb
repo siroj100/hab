@@ -8,6 +8,8 @@ class Person < ActiveRecord::Base
     timestamps
   end
 
+  
+  has_many :addresses, :dependent => :destroy
 
   # --- Permissions --- #
 

@@ -11,6 +11,8 @@ class Address < ActiveRecord::Base
   end
 
 
+  belongs_to :person
+
   # --- Permissions --- #
 
   def create_permitted?
