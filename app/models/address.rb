@@ -7,11 +7,13 @@ class Address < ActiveRecord::Base
     zip     :string
     city    :string
     country :string
+    country enum_string(*Carmen::country_codes)
     timestamps
   end
 
 
   belongs_to :person
+  validates_presence_of :person
 
   # --- Permissions --- #
 

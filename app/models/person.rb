@@ -5,6 +5,7 @@ class Person < ActiveRecord::Base
   fields do
     name :string
     sex  :string
+    sex enum_string('', :male, :female)
     timestamps
   end
 
