@@ -15,6 +15,10 @@ class Address < ActiveRecord::Base
   belongs_to :person
   validates_presence_of :person
 
+  def to_s
+    street
+  end
+
   # --- Permissions --- #
 
   def create_permitted?
