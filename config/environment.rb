@@ -1,5 +1,5 @@
 # Be sure to restart your server when you modify this file
-require 'rack/cache'
+#require 'rack/cache'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
 RAILS_GEM_VERSION = '2.3.8' unless defined? RAILS_GEM_VERSION
@@ -9,7 +9,7 @@ require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
   config.gem 'hobo'
-  config.gem 'rack-cache'
+  #config.gem 'rack-cache'
 
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
@@ -43,9 +43,11 @@ Rails::Initializer.run do |config|
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
   # config.i18n.default_locale = :de
 
+=begin
   config.middleware.use Rack::Cache,
     :verbose => true,
     :metastore   => "#{File.dirname(__FILE__)}/../tmp/cache/rack/meta",
     :entitystore => "#{File.dirname(__FILE__)}/../tmp/cache/rack/body"
+=end
 
 end
