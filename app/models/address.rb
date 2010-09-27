@@ -12,7 +12,7 @@ class Address < ActiveRecord::Base
   end
 
 
-  belongs_to :person
+  belongs_to :person, :touch => true
   validates_presence_of :person
 
   def to_s

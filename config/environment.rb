@@ -45,7 +45,9 @@ Rails::Initializer.run do |config|
 
   config.middleware.use Rack::Cache,
     :verbose => true,
-    :metastore   => "#{File.dirname(__FILE__)}/../tmp/cache/rack/meta",
-    :entitystore => "#{File.dirname(__FILE__)}/../tmp/cache/rack/body"
+    :metastore   => 'file:/tmp/cache/rack/meta',
+    :entitystore => 'file:/tmp/cache/rack/body'
+    #:metastore   => 'file:/'+"#{File.dirname(__FILE__)}/../tmp/cache/rack/meta".gsub(':',''),
+    #:entitystore => 'file:/'+"#{File.dirname(__FILE__)}/../tmp/cache/rack/body".gsub(':','')
 
 end

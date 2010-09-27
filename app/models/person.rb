@@ -30,4 +30,12 @@ class Person < ActiveRecord::Base
     true
   end
 
+
+  # --- Custom finder --- #
+
+  def self.last_updated_person
+    people = find :all, :order=>'updated_at DESC'
+    unless people.length == 0 then return people[0] end
+  end
+
 end
