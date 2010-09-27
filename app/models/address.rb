@@ -14,6 +14,7 @@ class Address < ActiveRecord::Base
 
   belongs_to :person, :touch => true
   validates_presence_of :person
+  validates_inclusion_of :country, :in => Carmen::country_codes
 
   def to_s
     street
