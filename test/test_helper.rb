@@ -42,3 +42,13 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
 end
+
+class ActionController::TestCase
+  def login_as(user)
+    old_controller = @controller
+    @controller = UsersController.new
+    post :login, :login=>user.email_address, :password=>user.password
+    assert_not_nil(session[:user])
+    @controller = old_controller
+  end
+end
