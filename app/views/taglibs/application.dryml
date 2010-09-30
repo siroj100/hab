@@ -7,3 +7,43 @@
 <set-theme name="clean"/>
 
 <def tag="app-name">Hab</def>
+
+<extend tag="card" for="Person">
+  <old-card merge>
+    <heading:>
+      <%= link_to_remote this.to_s, 
+            { :update=> "addresses#{this.id}", 
+              :url=>{:controller=>'people', :action=>'show', :id=>this.id}, 
+              :method=>:get
+            }, 
+            :href=>url_for(:controller=>'people', :action=>'show', :id=>this.id) %>
+    </heading:>
+    <body: id="addresses#{this.id}"/>
+  </old-card>
+</extend>
+
+<extend tag="show-page" for="Person">
+  <old-show-page merge>
+    <collection-section:>
+      <partial name="addresses"/>
+    </collection-section:>
+  </old-show-page>
+</extend>
+
+<def tag="person-addresses">
+  <section param="collection-section">
+    <h3 param="collection-heading">
+      <ht key="people.collection.heading.other" >
+        Addresses
+      </ht>
+    </h3>
+
+    <collection:addresses param/>
+
+    <a:addresses action="new" if="&can_create?(@person.addresses)" param="new-link">
+      <ht key="addresses.actions.new">
+        New Address
+      </ht>
+    </a:addresses>
+  </section>
+</def>

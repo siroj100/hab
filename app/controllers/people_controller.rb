@@ -15,7 +15,11 @@ class PeopleController < ApplicationController
 
   def show
     @person = find_instance
-    fresh_when :etag=>@person, :last_modified=>@person.updated_at.utc, :public=>true
+    if request.xhr?
+      render :partial=>'addresses'
+    else
+      fresh_when :etag=>@person, :last_modified=>@person.updated_at.utc, :public=>true
+    end
   end
 
 end
