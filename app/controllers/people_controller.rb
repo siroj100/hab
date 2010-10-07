@@ -4,6 +4,8 @@ class PeopleController < ApplicationController
 
   auto_actions :all, :except => [:new]
 
+  skip_before_filter :set_no_cache_headers, :only => [:index, :show]
+
   def index
     @people = find_or_paginate(Person, {})
     unless @people.length == 0
