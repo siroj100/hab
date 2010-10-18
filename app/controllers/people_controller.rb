@@ -9,12 +9,13 @@ class PeopleController < ApplicationController
   def index
     @people = find_or_paginate(Person, {})
     #puts "login as: #{current_user}, #{current_user.administrator?}, #{current_user.class}"
-    unless current_user.administrator? || @people.length == 0  
-      person = Person.last_updated_person
-      expires_in 0.seconds
-      fresh_when :etag=>person, :last_modified=>person.updated_at.utc, :public=>true
+    last_updated_at = 0
+    unless @people.length == 0  
+      last_updated_at = Person.maximum(:updated_at).utc
     end
-    
+    action_tag = "#{current_user}/#{last_updated_at}"
+    expires_in 0.seconds
+    fresh_when :etag=>action_tag, :last_modified=>last_updated_at, :public=>true
   end
 
   def show
@@ -22,9 +23,10 @@ class PeopleController < ApplicationController
     #puts "login as: #{current_user}, #{current_user.class}"
     if request.xhr?
       render :partial=>'addresses'
-    elsif !current_user.administrator?
+    else 
+      action_tag = "#{current_user}/#{@person.updated_at.utc}"
       expires_in 0.seconds
-      fresh_when :etag=>@person, :last_modified=>@person.updated_at.utc, :public=>true
+      fresh_when :etag=>action_tag, :last_modified=>@person.updated_at.utc, :public=>true
     end
   end
 
