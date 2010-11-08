@@ -57,4 +57,12 @@ Spec::Runner.configure do |config|
     full_example_description = "Starting #{@method_name}"
     Rails::logger.info("\n\n#{full_example_description}\n#{'-' * (full_example_description.length)}")      
   end  
+
+  config.after(:each) do
+    Rails::logger.info('clean up data')      
+    Address.delete_all
+    Person.delete_all
+    User.delete_all
+  end
+
 end

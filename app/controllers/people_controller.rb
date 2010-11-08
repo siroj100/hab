@@ -8,9 +8,6 @@ class PeopleController < ApplicationController
 
   def index
     @people = find_or_paginate(Person, {})
-    p_ids = 
-    logger.info("people: #{@people}, #{@people.collect{|p| p.id}.join(',')}")
-    #puts "login as: #{current_user}, #{current_user.administrator?}, #{current_user.class}"
     last_updated_at = 0
     unless @people.length == 0  
       last_updated_at = Person.maximum(:updated_at).utc
@@ -23,13 +20,11 @@ class PeopleController < ApplicationController
 
   def show
     @person = find_instance
-    logger.info("person: #{@person}, #{@person.id}")
-    #puts "login as: #{current_user}, #{current_user.class}"
     if request.xhr?
       render :partial=>'addresses'
     else 
       action_tag = "#{current_user}/#{@person.updated_at.utc}"
-    logger.info("action_tag: #{action_tag}")
+      logger.info("action_tag: #{action_tag}")
       expires_in 0.seconds
       fresh_when :etag=>action_tag, :last_modified=>@person.updated_at.utc, :public=>true
     end

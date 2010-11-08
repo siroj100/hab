@@ -14,11 +14,6 @@ class AddressTest < ActiveSupport::TestCase
     assert address.errors.invalid?(:person)
   end
 
-  def test_address_w_empty_street
-    address = Factory(:address_w_empty_street)
-    assert_valid address
-  end
-
   def test_address_w_invalid_country_code
     address = Factory(:address_w_invalid_country_code)
     assert !address.valid?
