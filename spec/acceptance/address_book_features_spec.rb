@@ -27,10 +27,7 @@ feature "Address Book features" do
   end
 
   scenario "An address of a person should be editable by an admin" do
-    visit '/login'
-    fill_in 'login', :with => @admin.email_address
-    fill_in 'password', :with => @admin.password
-    click_button 'Log in'
+    login_as(@admin)
     visit '/people'
     click_link @address.person.name
     click_link @address.street
@@ -45,10 +42,7 @@ feature "Address Book features" do
   end
   
   scenario "An address of a person be not editable by regular user" do
-    visit '/login'
-    fill_in 'login', :with => @user.email_address
-    fill_in 'password', :with => @user.password
-    click_button 'Log in'
+    login_as(@user)
     visit '/people'
     click_link @address.person.name
     click_link @address.street
@@ -60,10 +54,7 @@ feature "Address Book features" do
     click_link @address.person.name
     page.should have_content(@address.street)
 
-    visit '/login'
-    fill_in 'login', :with => @admin.email_address
-    fill_in 'password', :with => @admin.password
-    click_button 'Log in'
+    login_as(@admin)
 
     visit '/people'
     click_link @address.person.name
