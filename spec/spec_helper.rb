@@ -60,9 +60,7 @@ Spec::Runner.configure do |config|
 
   config.after(:each) do
     Rails::logger.info('clean up data')      
-    Address.delete_all
-    Person.delete_all
-    User.delete_all
+    ActiveRecord::Base.delete_everything!
   end
 
 end
